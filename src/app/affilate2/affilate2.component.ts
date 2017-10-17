@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angula
 import { ActivatedRoute } from '@angular/router'
 import { DATA_MOCK } from './data.mock'
 import { menuAnimation } from '../shared/animation/menu.animation'
+import { BaseComponent } from '../base.component'
 
 @Component({
   selector: 'app-affilate2',
@@ -10,24 +11,6 @@ import { menuAnimation } from '../shared/animation/menu.animation'
     menuAnimation
   ]
 })
-export class Affilate2Component implements OnInit {
-  showChart = false
-  data = DATA_MOCK['all']
-
-  constructor(
-    private route: ActivatedRoute
-  ) {
-    this.route.params
-      .map(p => p['id'])
-      .subscribe(id => {
-        this.data = DATA_MOCK[id]
-      })
-  }
-
-  ngOnInit() {
-  }
-
-  menuAnimationDone() {
-    this.showChart = true
-  }
+export class Affilate2Component extends BaseComponent {
+  dataMock = DATA_MOCK
 }

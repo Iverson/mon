@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core'
   styleUrls: ['./app.component.less']
 })
 export class AppComponent implements OnInit {
-  title = 'app'
   loaded = false
   loading = false
 
