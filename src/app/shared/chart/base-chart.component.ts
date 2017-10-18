@@ -42,6 +42,8 @@ export abstract class BaseChartComponent implements OnInit, AfterViewInit {
           value
             .reverse()
             .forEach((s, i) => this.addSerie(s, this.series.length - i - 1))
+
+          this.initAnimation()
         })
     }
     this._series = value
@@ -82,6 +84,7 @@ export abstract class BaseChartComponent implements OnInit, AfterViewInit {
   ngOnInit() {
   }
 
+  initAnimation() {}
 
   ngAfterViewInit() {
     this.svg = d3.select(this.svgRef.nativeElement)
@@ -91,6 +94,7 @@ export abstract class BaseChartComponent implements OnInit, AfterViewInit {
     this.addAxises()
     this.addLegend()
     this.addGradients()
+    this.addClipPath()
 
     this.viewInit$.next(true)
   }
@@ -176,5 +180,14 @@ export abstract class BaseChartComponent implements OnInit, AfterViewInit {
     this.legend = this.svg.append('g')
       .attr('class', 'legend')
       .attr('transform', 'translate(' + left + ',' + top + ')')
+  }
+
+  addClipPath() {
+    this.view.g.append('clipPath')
+      .attr('id', 'rectClip')
+      .append('rect')
+        .attr('width', 0)
+        .attr('y', -4)
+        .attr('height', this.view.height + 4)
   }
 }

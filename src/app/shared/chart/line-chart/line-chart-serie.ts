@@ -27,24 +27,16 @@ export class LineChartSerieView extends BaseChartSerieView {
       .attr('fill', 'none')
       .attr('stroke', this.model.color)
       .attr('stroke-width', 4)
+      .attr('clip-path', 'url(#rectClip)')
       .attr('d', this.chart.line)
-
-    this.animatePath(this.borderPathEl)
   }
 
   renderArea() {
     this.areaPathEl = this.chart.view.g.append<SVGPathElement>('path')
       .datum(this.model.data)
       .attr('fill', this.model.fill || this.model.color )
-      .attr('opacity', 0)
+      .attr('clip-path', 'url(#rectClip)')
       .attr('d', this.chart.area)
-
-
-    this.areaPathEl
-      .transition('linear')
-      .delay(2000)
-      .duration(2000)
-      .attr('opacity', 1)
   }
 
   renderLegend() {

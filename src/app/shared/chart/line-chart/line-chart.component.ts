@@ -55,4 +55,11 @@ export class LineChartComponent extends BaseChartComponent {
     ])
   }
 
+  initAnimation() {
+    this.view.g.select('#rectClip rect')
+      .transition()
+      .duration(2000)
+      .attr('width', this.view.width)
+  }
+
 }
