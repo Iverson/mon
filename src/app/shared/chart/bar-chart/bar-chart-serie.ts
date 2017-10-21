@@ -44,7 +44,7 @@ export class BarChartSerieView extends BaseChartSerieView {
         .attr('class', 'legend-text')
         .attr('text-anchor', this.chart.legendAlign)
         .attr('alignment-baseline', 'hanging')
-        .attr('x', legendXDelta)
+        .attr('x', legendXDelta ? legendXDelta - 10 : 0)
         .attr('fill', (d, index, groups) => this.chart.colors[index])
         .attr('opacity', 0)
         .selectAll('tspan')

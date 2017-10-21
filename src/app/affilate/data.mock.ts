@@ -17,10 +17,10 @@ export const DATA_MOCK = {
         {name: 'Vasily Pupkin', y: 1397},
         {name: 'Katja Vlasova', y: 470},
         {name: 'plan', y: 768},
-        {name: 'Ivan Bobkov', y: 678},
-        {name: 'Vasily Pupkin', y: 983},
-        {name: 'Katja Vlasova', y: 1368},
-        {name: 'plan', y: 1578},
+        // {name: 'Ivan Bokov', y: 678},
+        // {name: 'Vasily Pukin', y: 983},
+        // {name: 'Katja Vasova', y: 1368},
+        // {name: 'Plan', y: 1578},
       ]
     }
   ],

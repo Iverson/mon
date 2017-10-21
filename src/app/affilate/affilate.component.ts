@@ -4,6 +4,8 @@ import { DATA_MOCK } from './data.mock'
 import { menuAnimation } from '../shared/animation/menu.animation'
 import { BaseComponent } from '../base.component'
 
+console.log(DATA_MOCK)
+
 @Component({
   selector: 'app-affilate',
   templateUrl: './affilate.component.html',
