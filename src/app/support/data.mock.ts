@@ -1,7 +1,7 @@
 export const DATA_MOCK = {
   all: [
     {
-      "data": [
+      data: [
         {x: new Date(2007, 3, 1), y: 32},
         {x: new Date(2007, 3, 2), y: 47},
         {x: new Date(2007, 3, 3), y: 44},
@@ -10,7 +10,7 @@ export const DATA_MOCK = {
         {x: new Date(2007, 3, 6), y: 90},
         {x: new Date(2007, 3, 7), y: 92}
       ],
-      name: "Ivan Bobkov"
+      name: 'Ivan Bobkov'
     },
     {
       data: [
@@ -25,7 +25,7 @@ export const DATA_MOCK = {
       name: 'Plan'
     },
     {
-      "data": [
+      data: [
         {x: new Date(2007, 3, 1), y: 48},
         {x: new Date(2007, 3, 2), y: 54},
         {x: new Date(2007, 3, 3), y: 63},
@@ -34,10 +34,10 @@ export const DATA_MOCK = {
         {x: new Date(2007, 3, 6), y: 71},
         {x: new Date(2007, 3, 7), y: 64}
       ],
-      name: "Vasily Pupkin"
+      name: 'Vasily Pupkin'
     },
     {
-      "data": [
+      data: [
         {x: new Date(2007, 3, 1), y: 28},
         {x: new Date(2007, 3, 2), y: 12},
         {x: new Date(2007, 3, 3), y: 38},
@@ -46,12 +46,12 @@ export const DATA_MOCK = {
         {x: new Date(2007, 3, 6), y: 71},
         {x: new Date(2007, 3, 7), y: 36}
       ],
-      name: "Katja Vlasova"
+      name: 'Katja Vlasova'
     },
   ],
   replies: [
     {
-      "data": [
+      data: [
         {x: new Date(2007, 3, 1), y: 20},
         {x: new Date(2007, 3, 2), y: 77},
         {x: new Date(2007, 3, 3), y: 94},
@@ -60,7 +60,7 @@ export const DATA_MOCK = {
         {x: new Date(2007, 3, 6), y: 90},
         {x: new Date(2007, 3, 7), y: 77}
       ],
-      name: "Ivan Bobkov"
+      name: 'Ivan Bobkov'
     },
     {
       data: [
@@ -75,7 +75,7 @@ export const DATA_MOCK = {
       name: 'Plan'
     },
     {
-      "data": [
+      data: [
         {x: new Date(2007, 3, 1), y: 78},
         {x: new Date(2007, 3, 2), y: 24},
         {x: new Date(2007, 3, 3), y: 93},
@@ -84,10 +84,10 @@ export const DATA_MOCK = {
         {x: new Date(2007, 3, 6), y: 81},
         {x: new Date(2007, 3, 7), y: 84}
       ],
-      name: "Vasily Pupkin"
+      name: 'Vasily Pupkin'
     },
     {
-      "data": [
+      data: [
         {x: new Date(2007, 3, 1), y: 58},
         {x: new Date(2007, 3, 2), y: 12},
         {x: new Date(2007, 3, 3), y: 48},
@@ -96,13 +96,13 @@ export const DATA_MOCK = {
         {x: new Date(2007, 3, 6), y: 91},
         {x: new Date(2007, 3, 7), y: 26}
       ],
-      name: "Katja Vlasova"
+      name: 'Katja Vlasova'
     },
 
   ],
   daily: [
     {
-      "data": [
+      data: [
         {x: new Date(2007, 3, 1), y: 75},
         {x: new Date(2007, 3, 2), y: 41},
         {x: new Date(2007, 3, 3), y: 39},
@@ -111,7 +111,7 @@ export const DATA_MOCK = {
         {x: new Date(2007, 3, 6), y: 65},
         {x: new Date(2007, 3, 7), y: 68}
       ],
-      name: "Ivan Bobkov"
+      name: 'Ivan Bobkov'
     },
     {
       data: [
@@ -126,7 +126,7 @@ export const DATA_MOCK = {
       name: 'Plan'
     },
     {
-      "data": [
+      data: [
         {x: new Date(2007, 3, 1), y: 35},
         {x: new Date(2007, 3, 2), y: 69},
         {x: new Date(2007, 3, 3), y: 73},
@@ -135,10 +135,10 @@ export const DATA_MOCK = {
         {x: new Date(2007, 3, 6), y: 85},
         {x: new Date(2007, 3, 7), y: 45}
       ],
-      name: "Vasily Pupkin"
+      name: 'Vasily Pupkin'
     },
     {
-      "data": [
+      data: [
         {x: new Date(2007, 3, 1), y: 46},
         {x: new Date(2007, 3, 2), y: 10},
         {x: new Date(2007, 3, 3), y: 75},
@@ -147,7 +147,7 @@ export const DATA_MOCK = {
         {x: new Date(2007, 3, 6), y: 100},
         {x: new Date(2007, 3, 7), y: 88}
       ],
-      name: "Katja Vlasova"
+      name: 'Katja Vlasova'
     },
   ]
 }

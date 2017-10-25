@@ -1,3 +1,5 @@
+/* tslint:disable: component-selector */
+
 import * as d3 from 'd3'
 import { Area, Line } from 'd3-shape'
 import { ScaleTime, ScaleLinear } from 'd3-scale'
