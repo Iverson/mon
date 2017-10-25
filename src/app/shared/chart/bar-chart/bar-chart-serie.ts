@@ -97,6 +97,9 @@ export class BarChartSerieView extends BaseChartSerieView {
           })
 
     selection.select('.legend-text')
+      .attr('y', function<SVGTextELement>(da, index) {
+        return self.legendLineHeight - this.getBBox().height
+      })
       .transition()
       .delay((d, index) => 1000 + index * 150)
       .duration(1000)
