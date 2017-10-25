@@ -1,6 +1,3 @@
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/zip'
-
 import { enableProdMode } from '@angular/core'
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 

@@ -1,27 +1,32 @@
-import { TestBed, async } from '@angular/core/testing'
+import { TestBed, async, ComponentFixture } from '@angular/core/testing'
 import { AppComponent } from './app.component'
+import { AppModule } from './app.module'
+
 describe('AppComponent', () => {
+  let fixture: ComponentFixture<AppComponent>
+  let app: AppComponent
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
+      imports: [
+        AppModule
       ],
     }).compileComponents()
+
+    fixture = TestBed.createComponent(AppComponent)
+    app     = fixture.debugElement.componentInstance
   }))
+
   it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent)
-    const app = fixture.debugElement.componentInstance
     expect(app).toBeTruthy()
   }))
-  it(`should have as title 'app'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent)
-    const app = fixture.debugElement.componentInstance
-    expect(app.title).toEqual('app')
+
+  it(`shouldn't show loader immediately`, async(() => {
+    expect(app.loading).toBeFalsy()
   }))
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent)
-    fixture.detectChanges()
-    const compiled = fixture.debugElement.nativeElement
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!')
+
+  it('should render html5 video element', async(() => {
+    const el = fixture.debugElement.nativeElement
+    expect(el.querySelector('video')).not.toBeNull()
   }))
 })
