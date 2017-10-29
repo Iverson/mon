@@ -20,14 +20,32 @@ export class LineChartComponent extends BaseChartComponent {
   x: ScaleTime<number, number>
   y: ScaleLinear<number, number>
 
-  addAxises() {
+  updateAxises() {
     this.x = d3.scaleTime()
-        .rangeRound([0, this.view.width])
+      .rangeRound([0, this.view.width])
 
     this.y = d3.scaleLinear()
-        .rangeRound([this.view.height, 0])
+      .rangeRound([this.view.height, 0])
 
-    this.update(this.series)
+    this.x.domain([
+      d3.min(this.series, s => d3.min(s.data, d => d.x)),
+      d3.max(this.series, s => d3.max(s.data, d => d.x))
+    ])
+
+    this.y.domain([
+      0,
+      d3.max(this.series, s => d3.max(s.data, d => d.y))
+    ])
+  }
+
+  addSerie(serie: Chart.Serie, color: string) {
+    const view = new LineChartSerieView(this, serie, color)
+
+    this.serieViews.push(view)
+  }
+
+  update() {
+    this.updateAxises()
 
     this.line = d3.line<Chart.Point>()
       .x(d => this.x(d.x))
@@ -37,24 +55,6 @@ export class LineChartComponent extends BaseChartComponent {
       .x(d => this.x(d.x))
       .y1(d => this.y(d.y))
       .y0(this.y(0))
-  }
-
-  addSerie(serie: Chart.Serie, index: number) {
-    serie.color = this.colors[index]
-    serie.fill = `url(#gradient-${index})`
-    this.serieViews.push(new LineChartSerieView(this, serie))
-  }
-
-  update(series: Chart.Serie[]) {
-    this.x.domain([
-      d3.min(series, s => d3.min(s.data, d => d.x)),
-      d3.max(series, s => d3.max(s.data, d => d.x))
-    ])
-
-    this.y.domain([
-      0,
-      d3.max(series, s => d3.max(s.data, d => d.y))
-    ])
   }
 
   initAnimation() {

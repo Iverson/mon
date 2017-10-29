@@ -13,8 +13,9 @@ export class BarChartSerieView extends BaseChartSerieView {
   constructor(
     protected chart: BarChartComponent,
     protected model: Chart.Serie,
+    public color: string,
   ) {
-    super(chart, model)
+    super(chart, model, color)
   }
 
   render() {

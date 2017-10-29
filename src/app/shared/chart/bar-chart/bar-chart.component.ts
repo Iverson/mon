@@ -34,7 +34,7 @@ export class BarChartComponent extends BaseChartComponent {
     {offset: '70%', opacity: '0'},
   ]
 
-  addAxises() {
+  updateAxises() {
     this.x = d3.scaleBand()
       .rangeRound([0, this.view.width])
       .padding(0.15)
@@ -42,19 +42,19 @@ export class BarChartComponent extends BaseChartComponent {
     this.y = d3.scaleLinear()
       .rangeRound([this.view.height, 0])
 
-    this.update(this.series)
-  }
-
-  update(series: Chart.Serie[]) {
-    this.x.domain(series[0].data.map(d => d.name))
+    this.x.domain(this.series[0].data.map(d => d.name))
     this.y.domain([
       0,
-      d3.max(series, s => d3.max(s.data, d => d.y))
+      d3.max(this.series, s => d3.max(s.data, d => d.y))
     ])
   }
 
-  addSerie(serie: Chart.Serie, index: number) {
-    this.serieViews.push(new BarChartSerieView(this, serie))
+  update() {
+    this.updateAxises()
+  }
+
+  addSerie(serie: Chart.Serie, color: string) {
+    this.serieViews.push(new BarChartSerieView(this, serie, color))
   }
 
 }

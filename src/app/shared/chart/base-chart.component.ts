@@ -28,25 +28,9 @@ export interface BaseChartViewOptions {
 export abstract class BaseChartComponent implements OnInit, AfterViewInit {
   @ViewChild('svg') svgRef: ElementRef
   @Input() set series(value: Chart.Serie[]) {
-    if (this.serieViews.length) {
-      this.update(value)
-      value.forEach(serie => {
-        const view = this.serieViews.find(v => v.name === serie.name)
-        if (view) {
-          view.update(serie)
-        }
-      })
-    } else {
-      this.viewInit$
-        .subscribe(() => {
-          value
-            .reverse()
-            .forEach((s, i) => this.addSerie(s, this.series.length - i - 1))
+    value = value || []
 
-          this.initAnimation()
-        })
-    }
-    this._series = value
+    this.viewInit$.subscribe(() => this.updateSeries(value))
   }
   private _series: Chart.Serie[] = []
   get series() {
@@ -74,9 +58,9 @@ export abstract class BaseChartComponent implements OnInit, AfterViewInit {
     margin: {top: 10, right: '15%', bottom: 0, left: 0}
   }
 
-  abstract addSerie(serie: Chart.Serie, index: number)
-  abstract addAxises()
-  abstract update(series: Chart.Serie[])
+  abstract addSerie(serie: Chart.Serie, color: string)
+  abstract updateAxises()
+  abstract update()
 
   constructor(private el: ElementRef) {
   }
@@ -91,12 +75,40 @@ export abstract class BaseChartComponent implements OnInit, AfterViewInit {
     this.view.g = this.svg.append('g')
 
     this.updateLayout()
-    this.addAxises()
     this.addLegend()
     this.addGradients()
     this.addClipPath()
 
     this.viewInit$.next(true)
+  }
+
+  updateSeries(series: Chart.Serie[]) {
+    this._series = series
+    this.update()
+
+    if (!this.serieViews.length && series.length) {
+      this.initAnimation()
+    }
+
+    this.serieViews
+      .filter(v => !series.find(s => s.name === v.name))
+      .forEach(v => this.removeSerie(v))
+
+    series.slice().reverse().forEach((serie, i) => {
+      const color = this.colors[series.length - i - 1]
+      const view = this.serieViews.find(v => v.name === serie.name)
+      if (view) {
+        view.color = color
+        view.update(serie)
+      } else {
+        this.addSerie(serie, color)
+      }
+    })
+  }
+
+  removeSerie(view: BaseChartSerieView) {
+    this.serieViews = this.serieViews.filter(v => v !== view)
+    view.destroy()
   }
 
   updateLayout() {
@@ -106,11 +118,11 @@ export abstract class BaseChartComponent implements OnInit, AfterViewInit {
     this.view = {
       ...this.view,
       margin,
-      width: offsetWidth - this.size(margin.left, offsetWidth) - this.size(margin.right, offsetWidth),
-      height: offsetHeight - this.size(margin.top, offsetHeight) - this.size(margin.bottom, offsetHeight)
+      width: offsetWidth - this.sizeX(margin.left) - this.sizeX(margin.right),
+      height: offsetHeight - this.sizeY(margin.top) - this.sizeY(margin.bottom)
     }
 
-    this.view.g.attr('transform', 'translate(' + this.size(margin.left, offsetWidth) + ',' + this.size(margin.top, offsetHeight) + ')')
+    this.view.g.attr('transform', 'translate(' + this.sizeX(margin.left) + ',' + this.sizeY(margin.top) + ')')
   }
 
   size(value: Chart.SizeValue, containerSize: number): number {
@@ -136,8 +148,8 @@ export abstract class BaseChartComponent implements OnInit, AfterViewInit {
 
   addGradients() {
     const defs = this.svg.append('defs')
-    let minY = this.y(d3.max(this.series, s => d3.max(s.data, d => d.y)))
-    let maxY = this.y(0)
+    let minY = this.view.margin.top
+    let maxY = this.sizeY(this.view.margin.top) + this.view.height
     let gradientUnits = 'userSpaceOnUse'
 
     if (this.gradientRelative) {
@@ -172,10 +184,10 @@ export abstract class BaseChartComponent implements OnInit, AfterViewInit {
 
   addLegend() {
     const { offsetWidth, offsetHeight } = this.el.nativeElement
-    const legendWidth = this.size(this.view.margin.right, offsetWidth)
+    const legendWidth = this.sizeX(this.view.margin.right)
 
-    const left = this.size(this.view.margin.left, offsetWidth) + this.size('15%', legendWidth)
-    const top = this.size(this.view.margin.top, offsetHeight)
+    const left = this.sizeX(this.view.margin.left) + this.size('15%', legendWidth)
+    const top = this.sizeY(this.view.margin.top)
 
     this.legend = this.svg.append('g')
       .attr('class', 'legend')

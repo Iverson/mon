@@ -11,8 +11,9 @@ export class LineChartSerieView extends BaseChartSerieView {
   constructor(
     protected chart: LineChartComponent,
     protected model: Chart.Serie<Date>,
+    public color: string,
   ) {
-    super(chart, model)
+    super(chart, model, color)
   }
 
   render() {
@@ -25,7 +26,7 @@ export class LineChartSerieView extends BaseChartSerieView {
     this.borderPathEl = this.chart.view.g.append<SVGPathElement>('path')
       .datum(this.model.data)
       .attr('fill', 'none')
-      .attr('stroke', this.model.color)
+      .attr('stroke', this.color)
       .attr('stroke-width', 4)
       .attr('clip-path', 'url(#rectClip)')
       .attr('d', this.chart.line)
@@ -34,7 +35,7 @@ export class LineChartSerieView extends BaseChartSerieView {
   renderArea() {
     this.areaPathEl = this.chart.view.g.append<SVGPathElement>('path')
       .datum(this.model.data)
-      .attr('fill', this.model.fill || this.model.color )
+      .attr('fill', this.fill)
       .attr('clip-path', 'url(#rectClip)')
       .attr('d', this.chart.area)
   }
@@ -48,7 +49,7 @@ export class LineChartSerieView extends BaseChartSerieView {
       .attr('class', 'legend-text')
       .attr('opacity', 0)
       .attr('y', -20)
-      .attr('fill', this.model.color)
+      .attr('fill', this.color)
       .text('_')
       .attr('transform', function() {
         const height = this.getBBox().height
@@ -85,10 +86,16 @@ export class LineChartSerieView extends BaseChartSerieView {
       .attr('y', 0)
   }
 
+  get fill() {
+    const index = this.chart.colors.indexOf(this.color)
+    return `url(#gradient-${index})`
+  }
+
   update(model: Chart.Serie) {
     this.model = model
 
     this.borderPathEl
+      .attr('stroke', this.color)
       .attr('stroke-dasharray', null)
       .datum(model.data)
       .transition()
@@ -96,17 +103,22 @@ export class LineChartSerieView extends BaseChartSerieView {
       .attr('d', this.chart.line)
 
     this.areaPathEl
+      .attr('fill', this.fill)
       .datum(model.data)
       .transition()
       .duration(1000)
       .attr('d', this.chart.area)
 
     this.legendTextEl
+      .attr('fill', this.color)
       .transition()
       .duration(1000)
       .attr('transform', `translate(${this.chart.x(this.lastPoint.x)}, ${this.chart.y(this.lastPoint.y) - this.legendLineHeight / 2})`)
   }
 
   destroy() {
+    this.borderPathEl.remove()
+    this.areaPathEl.remove()
+    this.legendTextEl.remove()
   }
 }

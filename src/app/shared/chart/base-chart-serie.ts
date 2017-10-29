@@ -14,6 +14,7 @@ export abstract class BaseChartSerieView {
   constructor(
     protected chart: BaseChartComponent,
     protected model: Chart.Serie,
+    public color: string,
   ) {
     this.name = model.name
     this.render()
@@ -21,6 +22,7 @@ export abstract class BaseChartSerieView {
 
   abstract render()
   abstract update(model: Chart.Serie)
+  abstract destroy()
 
   animatePath(path: Selection<SVGPathElement, {}, null, undefined>) {
     const totalLength = path.node().getTotalLength()
@@ -31,9 +33,6 @@ export abstract class BaseChartSerieView {
       .transition('linear')
         .duration(2000)
         .attr('stroke-dashoffset', 0);
-  }
-
-  destroy() {
   }
 
   get lastPoint() {
