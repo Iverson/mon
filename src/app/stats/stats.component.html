@@ -1,0 +1,21 @@
+<app-menu
+  [tabs]="tabs"
+  [@menuAnimation]="true"
+  (@menuAnimation.done)="menuAnimationDone()"
+></app-menu>
+
+<ng-container *ngIf="showChart && data">
+  <chart class="chart-container"
+    *ngIf="chartType() === 'line'"
+    type="line"
+    [series]="data"
+  ></chart>
+
+  <chart class="chart-container"
+    *ngIf="chartType() === 'bar'"
+    type="bar"
+    [series]="data"
+    [legendAlign]="data[0].data.length > 7 ? 'start' : 'middle'"
+  ></chart>
+</ng-container>
+

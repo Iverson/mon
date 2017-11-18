@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
+import { HttpModule } from '@angular/http'
 
 import { MenuComponent } from './menu/menu.component'
 import { ChartModule } from './chart/chart.module'
@@ -15,7 +16,8 @@ import { ChartModule } from './chart/chart.module'
 ],
   exports: [
     MenuComponent,
-    ChartModule
+    ChartModule,
+    HttpModule
   ]
 })
 export class SharedModule { }

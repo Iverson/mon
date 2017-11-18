@@ -102,9 +102,9 @@ export class BarChartSerieView extends BaseChartSerieView {
         return self.legendLineHeight - this.getBBox().height
       })
       .transition()
-      .delay((d, index) => 1000 + index * 150)
-      .duration(1000)
-      .attr('opacity', 1)
+        .delay((d, index) => 1000 + index * 150)
+        .duration(1000)
+        .attr('opacity', 1)
   }
 
   updateLegends(selection: Selection<BaseType, Chart.Point, BaseType, {}>) {
@@ -113,16 +113,16 @@ export class BarChartSerieView extends BaseChartSerieView {
 
     selection
       .transition()
-      .duration(1000)
-      .attr('transform', d => `translate(${this.chart.x(d.name)}, ${this.legendY()})`)
+        .duration(1000)
+        .attr('transform', d => `translate(${this.chart.x(d.name)}, ${this.legendY()})`)
 
     selection.select('.legend-text')
       .attr('y', function<SVGTextELement>(da, index) {
         return self.legendLineHeight - this.getBBox().height
       })
       .transition()
-      .duration(1000)
-      .attr('x', legendXDelta ? legendXDelta - 10 : 0)
+        .duration(1000)
+        .attr('x', legendXDelta ? legendXDelta - 10 : 0)
   }
 
   createItems(selection: Selection<BaseType, Chart.Point, BaseType, {}>) {
@@ -133,9 +133,9 @@ export class BarChartSerieView extends BaseChartSerieView {
       .attr('transform', d => `translate(${this.chart.x(d.name)}, ${this.chart.y(0)})`)
       .attr('y', d => this.chart.y(d.y))
       .transition()
-      .delay((d, index) => index * 150)
-      .duration(1000)
-      .attr('transform', d => `translate(${this.chart.x(d.name)}, ${this.chart.y(d.y)})`)
+        .delay((d, index) => index * 150)
+        .duration(1000)
+        .attr('transform', d => `translate(${this.chart.x(d.name)}, ${this.chart.y(d.y)})`)
 
     selection
       .append('rect')
@@ -143,9 +143,9 @@ export class BarChartSerieView extends BaseChartSerieView {
         .attr('height', 0)
         .attr('fill', (d, index, groups) => `url(#gradient-${index})`)
         .transition()
-        .delay((d, index) => index * 150)
-        .duration(1000)
-        .attr('height', d => this.chart.view.height - this.chart.y(d.y))
+          .delay((d, index) => index * 150)
+          .duration(1000)
+          .attr('height', d => this.chart.view.height - this.chart.y(d.y))
 
     selection
       .append('text')
@@ -158,10 +158,10 @@ export class BarChartSerieView extends BaseChartSerieView {
         .attr('opacity', 0)
         .attr('dy', -this.chart.sizeY('3%'))
         .transition()
-        .delay((d, index) => 1000 + index * 150)
-        .duration(1000)
-        .attr('opacity', 1)
-        .attr('dy', 0)
+          .delay((d, index) => 1000 + index * 150)
+          .duration(1000)
+          .attr('opacity', 1)
+          .attr('dy', 0)
 
     selection
       .append('rect')
@@ -175,28 +175,28 @@ export class BarChartSerieView extends BaseChartSerieView {
   updateItems(selection: Selection<BaseType, Chart.Point, BaseType, {}>) {
     selection
       .transition()
-      .duration(1000)
-      .attr('transform', d => `translate(${this.chart.x(d.name)}, ${this.chart.y(d.y)})`)
+        .duration(1000)
+        .attr('transform', d => `translate(${this.chart.x(d.name)}, ${this.chart.y(d.y)})`)
 
     selection
       .select('.bar-border')
         .transition()
-        .duration(1000)
-        .attr('width', this.chart.x.bandwidth())
+          .duration(1000)
+          .attr('width', this.chart.x.bandwidth())
 
     selection
       .select('rect')
         .transition()
-        .duration(1000)
-        .attr('width', this.chart.x.bandwidth())
-        .attr('height', d => this.chart.view.height - this.chart.y(d.y))
+          .duration(1000)
+          .attr('width', this.chart.x.bandwidth())
+          .attr('height', d => this.chart.view.height - this.chart.y(d.y))
 
     selection
       .select('.data-label')
         .text(d => d.y)
         .transition()
-        .duration(1000)
-        .attr('x', d => this.chart.x.bandwidth() / 2)
+          .duration(1000)
+          .attr('x', d => this.chart.x.bandwidth() / 2)
   }
 
   destroy() {

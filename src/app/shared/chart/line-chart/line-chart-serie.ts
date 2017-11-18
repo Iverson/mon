@@ -78,12 +78,14 @@ export class LineChartSerieView extends BaseChartSerieView {
         .attr('x', 0)
         .attr('dy', this.legendLineHeight)
 
-    this.legendTextEl
-      .transition()
-      .delay(2000)
-      .duration(2000)
-      .attr('opacity', 1)
-      .attr('y', 0)
+    setTimeout(() => {
+      this.legendTextEl
+        .transition()
+        // .delay(2000)
+        .duration(2000)
+        .attr('opacity', 1)
+        .attr('y', 0)
+    }, 2000)
   }
 
   get fill() {
