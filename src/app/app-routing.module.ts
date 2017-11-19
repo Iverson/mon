@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
 import { StatsComponent } from './stats/stats.component'
 import { RouterGuard } from './app-routes.resolver'
+import { WelcomeComponent } from './welcome/welcome.component'
 
 const appRoutes: Routes = [
   {
@@ -10,6 +11,7 @@ const appRoutes: Routes = [
       routes: RouterGuard
     },
     children: [
+      { path: '', component: WelcomeComponent, pathMatch: 'full' },
       { path: ':section/:id', component: StatsComponent },
       { path: ':section', redirectTo: ':section/', pathMatch: 'full' },
     ]
@@ -30,5 +32,6 @@ const appRoutes: Routes = [
 export class AppRoutingModule {
   static components = [
     StatsComponent,
+    WelcomeComponent
   ]
 }

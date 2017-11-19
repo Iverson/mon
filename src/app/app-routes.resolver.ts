@@ -11,10 +11,5 @@ export class RouterGuard implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.dataService.fetchRoutes()
-      .do(routes => {
-        if (state.url === '/') {
-          this.router.navigate([Object.keys(routes)[0]])
-        }
-      })
   }
 }

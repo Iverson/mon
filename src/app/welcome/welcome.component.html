@@ -1,0 +1,8 @@
+<h1>
+  Available charts
+</h1>
+<ul class="menu">
+  <li *ngFor="let route of routes">
+    <a [routerLink]="[route]">{{route}}</a>
+  </li>
+</ul>

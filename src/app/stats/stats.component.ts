@@ -33,7 +33,10 @@ export class StatsComponent implements OnInit {
         this.data = null
 
         if (this.tabs && !id) {
-          this.router.navigate(['../', this.tabs[0]], {relativeTo: this.route})
+          this.router.navigate(['../', this.tabs[0]], {
+            relativeTo: this.route,
+            replaceUrl: true
+          })
           return
         }
 
