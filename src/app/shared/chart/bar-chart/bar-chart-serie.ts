@@ -63,19 +63,31 @@ export class BarChartSerieView extends BaseChartSerieView {
     const self = this
     const legendXDelta = this.legendXDelta()
 
+    const tmpText = this.chart.view.g
+      .append<SVGElement>('g')
+      .attr('class', 'legend-g')
+      .append('text')
+      .attr('class', 'legend-text')
+      .text('_')
+
+    this.legendLineHeight = (tmpText.node() as any).getBBox().height
+    tmpText.remove()
+
     selection
       .attr('class', 'legend-g')
       .attr('transform', d => `translate(${this.chart.x(d.name)}, ${this.legendY()})`)
-      .append('text')
+      .selectAll('text')
+      .data((d) => d.name.split('\n'))
+      .enter().append('text')
         .attr('class', 'legend-text')
         .attr('text-anchor', this.chart.legendAlign)
         .attr('alignment-baseline', 'hanging')
         .attr('x', legendXDelta ? legendXDelta - 10 : 0)
-        .attr('fill', (d, index, groups) => this.chart.colors[index])
+        .attr('transform', (d, index) => `translate(0, ${index > 0 ? self.legendLineHeight * 1.1 : 0})`)
         .attr('opacity', 0)
         .selectAll('tspan')
           .data((d) => {
-            return d.name.split(' ')
+            return d.split(' ')
               .map((w, i, array) => {
                 const next = array[i + 1]
                 if (w && i < array.length - 1 && (next.length + w.length) < LEGEND_NOWRAP_WORD_LENGTH) {
@@ -93,11 +105,16 @@ export class BarChartSerieView extends BaseChartSerieView {
           .attr('x', legendXDelta ? null : 0)
           .attr('dx', legendXDelta ? 10 : null)
           .attr('dy', function(da, index) {
-            self.legendLineHeight = (this.parentNode as any).getBBox().height
             return !legendXDelta && index > 0 ? self.legendLineHeight * 1.1 : 0
           })
 
-    selection.select('.legend-text')
+    selection.each(function(d, index) {
+      d3.select(this)
+        .selectAll('.legend-text')
+        .attr('fill', self.chart.colors[index])
+    })
+
+    selection.selectAll('.legend-text')
       .attr('y', function<SVGTextELement>(da, index) {
         return self.legendLineHeight - this.getBBox().height
       })

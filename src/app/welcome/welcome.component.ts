@@ -16,7 +16,6 @@ export class WelcomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.routes)
   }
 
 }

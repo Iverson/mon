@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "start:aot": "ng serve -aot",
-    "build": "ng build -prod -aot --base-href '/static/mon/'",
+    "build": "ng build -prod -aot",
     "build:serve": "http-server dist -p 4200 --push-state",
     "test": "ng test",
     "lint": "ng lint",
