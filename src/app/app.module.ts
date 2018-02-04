@@ -1,5 +1,6 @@
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/zip'
+import 'rxjs/add/operator/distinctUntilChanged'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'

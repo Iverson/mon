@@ -16,6 +16,7 @@ export class StatsComponent implements OnInit {
   data: any[]
   routes: Routes
   tabs: string[] = []
+  timer: any
 
   constructor(
     private router: Router,
@@ -54,6 +55,23 @@ export class StatsComponent implements OnInit {
               }
             }
           )
+      })
+
+    this.route.params
+      .map(p => p['section'])
+      .distinctUntilChanged()
+      .subscribe(s => {
+        clearInterval(this.timer)
+        this.timer = setInterval(() => {
+          const { id } = this.route.snapshot.params
+          const index =  this.tabs.indexOf(id)
+          const nextTab = index === this.tabs.length - 1 ? this.tabs[0] : this.tabs[index + 1]
+
+          this.router.navigate(['../', nextTab], {
+            relativeTo: this.route,
+            replaceUrl: true
+          })
+        }, 15000)
       })
 
     setTimeout(() => {
