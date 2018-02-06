@@ -55,19 +55,23 @@ export class StatsComponent implements OnInit {
               }
             }
           )
-      })
 
-    this.route.params
-      .map(p => p['section'])
-      .distinctUntilChanged()
-      .subscribe(s => {
-        clearInterval(this.timer)
-        this.timer = setInterval(() => {
-          const { id } = this.route.snapshot.params
-          const index =  this.tabs.indexOf(id)
-          const nextTab = index === this.tabs.length - 1 ? this.tabs[0] : this.tabs[index + 1]
+        clearTimeout(this.timer)
+        this.timer = setTimeout(() => {
+          const sections     = Object.keys(this.routes)
+          const tabIndex     = this.tabs.indexOf(id)
+          const sectionIndex = sections.indexOf(section)
+          let nextSection: string, nextTab: string
 
-          this.router.navigate(['../', nextTab], {
+          if (tabIndex === this.tabs.length - 1) {
+            nextSection = sectionIndex === sections.length - 1 ? sections[0] : sections[sectionIndex + 1]
+            nextTab     = this.routes[nextSection][0]
+          } else {
+            nextSection = section
+            nextTab     = this.tabs[tabIndex + 1]
+          }
+
+          this.router.navigate(['../../', nextSection, nextTab], {
             relativeTo: this.route,
             replaceUrl: true
           })
